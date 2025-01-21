@@ -8,10 +8,13 @@ from files import mods
 import psutil
 
 DATA_PATH = None
+MP_MODULE_ENABLED = False
 
 def init():
     global DATA_PATH
     log_info("Starting BeamLauncher v0.1...")
+    check_valid_paths()
+
     current_version = get_latest_version()
     dir_path = os.path.join(CONFIG_DATA['paths']['data'], current_version)
     if os.path.isdir(dir_path):
@@ -21,6 +24,24 @@ def init():
     if CONFIG_DATA.get("data", None) == None or CONFIG_DATA.get("data", None).get("version", None) != current_version:
         log_warn("Config not complete, generating it now.")
         generate_config(current_version)
+
+def check_valid_paths():
+    dirs_to_check = [
+        {
+            "name": "data",
+            "value": CONFIG_DATA.get('paths', {}).get('data') or None
+        },
+        {
+            "name": "game",
+            "value": CONFIG_DATA.get('paths', {}).get('game') or None
+        }
+    ]
+
+    for dir in dirs_to_check:
+        if not os.path.isdir(str(dir['value'])):
+            log_err(f"Directory for '{dir['name']}' is not valid! Please check the config.json file.")
+            quit()
+
 
 def is_game_running():
     target_name = "beamng"
