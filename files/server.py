@@ -1,9 +1,14 @@
 from flask import Flask, Blueprint, render_template, request, make_response, jsonify, send_file, redirect
 from files.config import CONFIG_DATA
-from files import beam, log, mods
+from files import beam, mods
+import files.log as flog
 import requests
+import logging
 
 app = Flask(__name__)
+log = logging.getLogger('werkzeug')
+log.disabled = True
+app.logger.disabled = True
 
 @app.route("/")
 def home():
@@ -11,7 +16,7 @@ def home():
 
 @app.route("/api/mp/get_servers")
 def api_mp_get_servers():
-    log.log_info("Requested server list")
+    flog.log_info("Requested server list")
     req = requests.get("https://backend.beammp.com/servers-info/")
     return req.json()
 
@@ -33,7 +38,7 @@ def configs():
 
 @app.route("/api/logs")
 def api_logs():
-    return log.get_log_file()
+    return flog.get_log_file()
 
 @app.route("/api/config/get_all")
 def api_get_configs():
@@ -114,4 +119,5 @@ def beam_launchsteam():
         return make_response("Error starting with steam", 500)
 
 def run_server():
+    flog.log_info(f"Running server on 'localhost:{CONFIG_DATA['port']}'")
     app.run(port=CONFIG_DATA['port'], debug=CONFIG_DATA['debug'])
