@@ -119,5 +119,5 @@ def beam_launchsteam():
         return make_response("Error starting with steam", 500)
 
 def run_server():
-    flog.log_info(f"Running server on 'localhost:{CONFIG_DATA['port']}'")
+    flog.log_info(f"Running server on 'http://localhost:{CONFIG_DATA['port']}'")
     app.run(port=CONFIG_DATA['port'], debug=CONFIG_DATA['debug'])
