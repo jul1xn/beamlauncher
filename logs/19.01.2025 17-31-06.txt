@@ -1,3 +1,0 @@
-[2025-01-19 17:31:06.301889] [Info] Starting BeamLauncher v0.1...
-[2025-01-19 17:31:06.302897] [Info] Found version: 0.34
-[2025-01-19 17:31:19.894700] [Info] Starting BeamNG locally

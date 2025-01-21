@@ -1,8 +1,0 @@
-[2025-01-19 15:08:26.621458] [Info] Starting BeamLauncher v0.1...
-[2025-01-19 15:08:26.622461] [Info] Found version: 0.34
-[2025-01-19 15:16:16.917308] [Info] Starting BeamNG multiplayer
-[2025-01-19 15:16:31.799839] [Info] Starting BeamNG locally
-[2025-01-19 15:16:35.752896] [Info] Starting BeamNG via steam
-[2025-01-19 15:17:58.787724] [Info] Requested server list
-[2025-01-19 15:18:10.297486] [Info] Requested server list
-[2025-01-19 15:19:37.415399] [Info] Requested server list
