@@ -42,6 +42,13 @@ def check_valid_paths():
             log_err(f"Directory for '{dir['name']}' is not valid! Please check the config.json file.")
             quit()
 
+    if os.path.isfile(os.path.join((CONFIG_DATA.get('paths', {}).get('multiplayer') or ""), "BeamMP-Launcher.exe")):
+        global MP_MODULE_ENABLED
+        MP_MODULE_ENABLED = True
+        log_info("Multiplayer directory is valid, so enabling that module.")
+
+    log_info("All directories under 'paths' are valid.")
+
 
 def is_game_running():
     target_name = "beamng"
@@ -151,6 +158,11 @@ def start_beam_local():
     os.system(f"start {exe_path}")
 
 def start_beam_mp():
+    global MP_MODULE_ENABLED
+    if not MP_MODULE_ENABLED:
+        log_warn("Tried to start BeamNG multiplayer whilst module not enabled! This is because you haven't selected the directory in the config.json file for it. Head over to the documentation for more details.")
+        return
+    
     log_info("Starting BeamNG multiplayer")
     exe_path = os.path.join(CONFIG_DATA['paths']['multiplayer'], "BeamMP-Launcher.exe").replace('\\\\', '\\')
     os.system(f"start {exe_path}")
