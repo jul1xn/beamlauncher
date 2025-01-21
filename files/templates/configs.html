@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Oriya:wght@400..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link rel="stylesheet" href="static/styles.css">
+    <title>BeamLauncher</title>
+</head>
+<body>
+    <header>
+        <a href="/">BeamLauncher</a>
+    </header>
+    <nav class="sidebar">
+        <ul>
+            <li><a href="/instances">Instances</a></li>
+            <li><a href="/mods">Mods</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle">Multiplayer</a>
+                <ul class="dropdown-menu">
+                    <li><a href="/mp/servers">Servers</a></li>
+                    <li><a href="/mp/player-lookup">Player Lookup</a></li>
+                </ul>
+            </li>
+            <li><a href="/configs">Configs</a></li>
+            <li><a href="/logs">Logs</a></li>
+            <li><a href="/settings">Settings</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h1>Your configs</h1>
+        <div class="configList">
+            
+        </div>
+    </main>
+    <footer>
+        <div class="statusBubble active" id="statusBubble"></div>
+        <label id="status">Status: Inactive</label>
+        <ul>
+            <li>
+                <button class="killGame" id="killBeam" title="Kill beamng">
+                    <img src="static/img/x.png" width="32" height="32">
+                </button>
+            </li>
+            <li>
+                <button class="startGame" id="startBeamLocal" title="Start BeamNG locally (without any online platform)">
+                    <img src="static/img/beamng.png" width="32" height="32">
+                </button>
+            </li>
+            <li>
+                <button class="startGame" id="startBeamSteam" title="Start BeamNG using Steam">
+                    <img src="static/img/steam.png" width="32" height="32">
+                </button>
+            </li>
+            <li>
+                <button class="startGame" id="startBeamMp" title="Start BeamNG multiplayer">
+                    <img src="static/img/mp.png" width="32" height="32">
+                </button>
+            </li>
+        </ul>
+    </footer>
+    <script src="static/home.js"></script>
+    <script src="static/configs.js"></script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+[2025-01-19 14:28:12.721500] [Info] Starting BeamLauncher v0.1...
+[2025-01-19 14:28:12.722497] [Info] Found version: 0.34
+[2025-01-19 14:28:16.860223] [Info] Requested server list
