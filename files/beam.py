@@ -54,11 +54,9 @@ def is_game_running():
     target_name = "beamng"
     for proc in psutil.process_iter(['name']):
         try:
-            # Use direct string comparison for efficiency
             if target_name in (proc.info['name'] or "").lower():
                 return True
         except psutil.Error:
-            # Catch all psutil-related errors (covers NoSuchProcess, AccessDenied, ZombieProcess)
             continue
     return False
 
