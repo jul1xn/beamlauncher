@@ -1,2 +1,2 @@
-# beamlauncher
+# BeamLauncher
  
