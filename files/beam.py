@@ -32,10 +32,6 @@ def check_valid_paths():
     try:
         dirs_to_check = [
             {
-                "name": "data",
-                "value": CONFIG_DATA.get('paths', {}).get('data') or None
-            },
-            {
                 "name": "game",
                 "value": CONFIG_DATA.get('paths', {}).get('game') or None
             }
@@ -51,7 +47,13 @@ def check_valid_paths():
             MP_MODULE_ENABLED = True
             log_info("Multiplayer directory is valid, so enabling that module.")
 
-        log_info("All directories under 'paths' are valid.")
+        if not os.path.isdir(CONFIG_DATA['paths']['data']):
+            beamng_appdata_folder = os.path.join(os.getenv('LOCALAPPDATA'), "BeamNG.drive")
+            CONFIG_DATA['paths']['data'] = beamng_appdata_folder
+            log_info("Generated data folder, saving config.")
+            cfg.save_new_config()
+
+        log_info("All required directories under 'paths' are valid.")
     except Exception as e:
         log_err(f"Exception at check_valid_paths: {e}")
 
