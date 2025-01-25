@@ -45,3 +45,6 @@ def get_mods(include_hashes: str):
                 mod_value['modData']['hashes'] = None
 
         return mod_data_copy
+    
+def convert_to_modname(mod: str):
+    return mod.split("\\")[-1].split(".")[0]
