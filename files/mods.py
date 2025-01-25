@@ -20,6 +20,16 @@ def init():
 
         log_info(f"Loaded {MOD_COUNT} mods from db.json.")
 
+def get_mod(mod_name: str, include_hashes: str):
+    mod = MODS_DATA['mods'].get(mod_name, None)
+
+    if mod:
+        mod = copy.deepcopy(mod)
+        if include_hashes == "false" and 'modData' in mod and 'hashes' in mod['modData']:
+            mod['modData']['hashes'] = None
+
+    return mod
+
 def get_mods(include_hashes: str):
     global MODS_DATA
 

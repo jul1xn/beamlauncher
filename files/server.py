@@ -47,6 +47,19 @@ def api_mods_getall():
 
     return jsonify(data)
 
+@app.route("/api/mods/get_mod", methods=["GET"])
+def api_mods_get_mod():
+    mod_name = request.args.get("name", None)
+    include_hashes = request.args.get("hashes", "false").lower()
+    if not mod_name:
+        return make_response("Please enter a mod name!", 400)
+    
+    mod_data = mods.get_mod(mod_name, include_hashes)
+    if not mod_data:
+        return make_response(f"Mod {mod_name} not found!", 404)
+    
+    return make_response(jsonify(mod_data), 200)
+
 @app.route("/api/config/get_all")
 def api_get_configs():
     return jsonify(beam.get_configs())
