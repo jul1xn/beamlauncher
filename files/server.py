@@ -40,6 +40,13 @@ def configs():
 def api_logs():
     return flog.get_log_file()
 
+@app.route("/api/mods/get_all", methods=["GET"])
+def api_mods_getall():
+    include_hashes = request.args.get("hashes", "false").lower()
+    data = mods.get_mods(include_hashes)
+
+    return jsonify(data)
+
 @app.route("/api/config/get_all")
 def api_get_configs():
     return jsonify(beam.get_configs())
