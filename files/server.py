@@ -78,7 +78,8 @@ def api_get_thumbnail_configs():
                 return send_file(beam.convert_config_to_image_path(config))
             except:
                 return redirect("/static/img/unknown.png")
-        
+    
+    flog.log_warn(f"Could not find thumbnail image with data config_name: {name}, config_folder: {folder}")
     return make_response("Mod image not found!", 404)
 
 @app.route("/api/beam/kill", methods=["GET"])
