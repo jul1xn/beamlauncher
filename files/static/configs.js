@@ -94,8 +94,39 @@ async function fetchConfigsList() {
     setTimeout(setStatus, 5000);
 }
 
-function downloadConfig() {
+function uploadAndImport() {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".blce";
+    input.style.display = "none";
 
+    input.addEventListener("change", async function () {
+        if (input.files.length === 0) return;
+
+        const file = input.files[0];
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+            const response = await fetch("/api/config/import", {
+                method: "POST",
+                body: formData
+            });
+
+            const result = await response.text();
+            alert("Imported config!");
+            location.reload();
+        } catch (error) {
+            console.error("Error uploading file:", error);
+            alert("File upload failed!");
+        }
+    });
+
+    // Trigger the file input dialog
+    document.body.appendChild(input);
+    input.click();
+    document.body.removeChild(input);
 }
 
+document.getElementById("importConfig").addEventListener("click", function() {uploadAndImport()})
 fetchConfigsList()

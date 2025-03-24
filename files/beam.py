@@ -135,6 +135,35 @@ def get_mods():
         log_err(f"Exception at get_mods: {e}")
         return None
 
+def import_config(config_file_data):
+    try:
+        global CONFIG_DATA
+        file_data = json.loads(base64.b64decode(config_file_data).decode('utf-8'))
+
+        config_folder = os.path.join(CONFIG_DATA["data"]["configs"], file_data["config_folder"] + "\\")
+        config_file = os.path.join(config_folder, f"{file_data["config_name"]}.pc")
+        config_img_file = os.path.join(config_folder, f"{file_data["config_name"]}.jpg")
+        log_info(CONFIG_DATA["data"]["configs"])
+        log_info(config_folder)
+        log_info(config_file)
+        log_info(config_img_file)
+
+        if not os.path.isdir(config_folder):
+            os.mkdir(config_folder)
+
+        with open(config_file, "w") as file:
+            file.write(base64.b64decode(file_data["config_data"]).decode('utf-8'))
+
+        with open(config_img_file, "wb") as file:
+            file.write(base64.b64decode(file_data["img_data"]))
+
+        obj = {"success": True}
+        return json.dumps(obj)
+
+    except Exception as e:
+        log_err(f"Exception at import_config: {e}")
+        return None
+
 def export_config(config_path):
     try:
         if not os.path.isfile(config_path):

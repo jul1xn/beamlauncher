@@ -96,6 +96,22 @@ def api_game_running():
     except:
         return make_response("Error in script game_running!", 500)
 
+@app.route("/api/config/import", methods=["POST"])
+def api_import_config():
+    if 'file' not in request.files:
+        return make_response("No file part in the request!", 400)
+
+    file = request.files['file']
+
+    if file.filename == '':
+        return make_response("No selected file!", 400)
+
+    try:
+        return beam.import_config(file.read())
+    except Exception as e:
+        return make_response(f"Error processing file: {str(e)}", 500)
+
+
 @app.route("/api/config/export", methods=["GET"])
 def api_export_config():
     name = request.args.get("config_name")
