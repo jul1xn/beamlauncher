@@ -47,6 +47,10 @@ def api_mods_getall():
 
     return jsonify(data)
 
+@app.route("/api/mods/count", methods=["GET"])
+def api_mods_count():
+    return str(mods.MOD_COUNT)
+
 @app.route("/api/mods/get_mod", methods=["GET"])
 def api_mods_get_mod():
     mod_name = request.args.get("name", None)
