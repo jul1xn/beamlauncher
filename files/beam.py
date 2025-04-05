@@ -141,8 +141,8 @@ def import_config(config_file_data):
         file_data = json.loads(base64.b64decode(config_file_data).decode('utf-8'))
 
         config_folder = os.path.join(CONFIG_DATA["data"]["configs"], file_data["config_folder"] + "\\")
-        config_file = os.path.join(config_folder, f"{file_data["config_name"]}.pc")
-        config_img_file = os.path.join(config_folder, f"{file_data["config_name"]}.jpg")
+        config_file = os.path.join(config_folder, f"{file_data['config_name']}.pc")
+        config_img_file = os.path.join(config_folder, f"{file_data['config_name']}.jpg")
         log_info(CONFIG_DATA["data"]["configs"])
         log_info(config_folder)
         log_info(config_file)
