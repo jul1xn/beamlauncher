@@ -1,4 +1,4 @@
-from files import server, beam, config, mods
+from files import server, beam, mods
 
 beam.init()
 mods.init()

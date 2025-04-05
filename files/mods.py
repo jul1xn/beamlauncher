@@ -1,5 +1,4 @@
 from files.config import CONFIG_DATA
-from files import beam
 from files.log import *
 import json
 import os
