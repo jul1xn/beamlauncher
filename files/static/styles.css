@@ -17,3 +17,13 @@
     transform: translate(-50%, 0%);
     width: 50%;
 }
+
+.logWindow {
+    background-color: #000;
+    min-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0.7em;
+    border-radius: 0.5em;
+    font-family: Consolas, monaco, monospace;
+}

@@ -1,5 +1,4 @@
 async function fetchConfigsList() {
-    setStatus("Loading config list", "busy");
     try {
         const response = await fetch('/api/config/get_all');
         if (!response.ok) {
@@ -27,18 +26,29 @@ async function fetchConfigsList() {
             return acc;
         }, {});
 
-        const configListContainer = document.querySelector('.configList');
+        const configListContainer = document.getElementById('configList');
         configListContainer.innerHTML = ''; // Clear any existing content
 
         // Iterate over each folder and its configs
         Object.entries(groupedConfigs).forEach(([folder, configs]) => {
             // Create a section for the folder
             const folderSection = document.createElement('div');
-            folderSection.classList.add('folderSection');
-
-            const folderHeader = document.createElement('h3');
-            folderHeader.textContent = folder;
-            folderSection.appendChild(folderHeader);
+            folderSection.classList.add('accordion-item');
+            folderSection.classList.add('accordion-flush');
+            
+            folderSection.innerHTML = `
+            <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${folder}" aria-expanded="false" aria-controls="flush-collapseOne">
+            ${folder}
+            </button>
+            </h2>
+            <div id="flush-collapse${folder}" class="accordion-collapse collapse show" data-bs-parent="#configList">
+            <div class="accordion-body"></div>
+            </div>
+            `;
+            
+            const folderBody = folderSection.querySelector(".accordion-body");
+            folderBody.style = "display: flex; flex-wrap: wrap; gap: 1rem;";
 
             // Add each config under this folder
             configs.forEach(config => {
@@ -46,23 +56,26 @@ async function fetchConfigsList() {
                 const thumbnailUrl = `/api/config/get_thumbnail?config_name=${encodeURIComponent(name)}&config_folder=${encodeURIComponent(folder)}`;
 
                 const configElement = document.createElement('div');
-                configElement.classList.add('configItem');
+                configElement.classList.add('card');
+                configElement.style.width = "22rem";
                 configElement.innerHTML = `
-                    <img src="${thumbnailUrl}" alt="Thumbnail for ${name}" class="thumbnail">
-                    <label>${name}</label>
-                    <button class="copy-name-btn" data-name="${name}" data-folder="${folder}">Export config</button>
+                    <img src="${thumbnailUrl}" alt="Thumbnail for ${name}" class="card-img-top">
+                    <div class="card-body">
+                    <h5 class="card-title">${name}</h5>
+                    <button class="btn btn-primary" data-name="${name}" data-folder="${folder}">Export config</button>
+                    </div>
                 `;
 
                 // Add the config element to the folder section
-                folderSection.appendChild(configElement);
+                folderBody.appendChild(configElement);
 
-                const thumbnailImg = configElement.querySelector(".thumbnail");
+                const thumbnailImg = configElement.querySelector(".card-img-top");
                 thumbnailImg.addEventListener("click", () => {
                     window.open(thumbnailUrl);
                 });
 
                 // Add event listener for the copy button
-                const copyButton = configElement.querySelector('.copy-name-btn');
+                const copyButton = configElement.querySelector('.btn.btn-primary');
                 copyButton.addEventListener('click', async () => {
                     var configName = copyButton.getAttribute('data-name');
                     var configFolder = copyButton.getAttribute('data-folder');
@@ -84,14 +97,10 @@ async function fetchConfigsList() {
             // Add the folder section to the container
             configListContainer.appendChild(folderSection);
         });
-
-        setStatus("Loaded config list");
     } catch (error) {
         console.error("An error occurred while fetching the config list:", error);
-        setStatus("Error whilst fetching!", "error");
+        appendAlert("Error whilst fetching!", "danger");
     }
-
-    setTimeout(setStatus, 5000);
 }
 
 function uploadAndImport() {

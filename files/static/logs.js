@@ -2,12 +2,12 @@ const logtext = document.getElementById("logText");
 
 async function fetchLogs() {
     try {
-        setStatus("Fetching logs", "busy");
         // Fetch the logs from the API endpoint
         const response = await fetch('/api/logs');
 
         // Check if the response is OK
         if (!response.ok) {
+            appendAlert(`Error fetching logs: ${response.status} ${response.statusText}`, "danger");
             throw new Error(`Error fetching logs: ${response.status} ${response.statusText}`);
         }
 
@@ -25,8 +25,6 @@ async function fetchLogs() {
         // Handle errors (e.g., network issues or server errors)
         console.error("An error occurred while fetching logs:", error);
     }
-
-    setStatus();
 }
 
 document.getElementById("refresh").addEventListener("click", fetchLogs);
