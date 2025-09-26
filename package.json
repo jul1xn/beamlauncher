@@ -1,0 +1,24 @@
+{
+  "name": "beamlauncher",
+  "version": "1.0.0",
+  "description": "A browser-based launcher for BeamNG.drive.",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jul1xn/beamlauncher.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jul1xn/beamlauncher/issues"
+  },
+  "homepage": "https://github.com/jul1xn/beamlauncher#readme",
+  "dependencies": {
+    "electron": "^38.1.2"
+  }
+}
